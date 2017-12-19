@@ -1,0 +1,48 @@
+<!doctype html>
+<html ng-app>
+
+<head>
+
+</head>
+
+<body>
+
+    <div ng-controller="MeuController">
+        <h1>{{title}}</h1>
+        <br>
+        <h2>Tarefa(as) restante(s): {{remaining()}} </h2>
+
+        <input type="text" placeholder="Filtrar" ng-model="search" />
+        <ul ng-repeat="todo in todos | filter: search">
+            <li>
+                <input type="checkbox" ng-model="todo.done" /> {{todo.text}}
+            </li>
+        </ul>
+    </div>
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.14/angular.min.js"></script>
+    <script>
+        function MeuController($scope) {
+            $scope.title = ".:: My First App AngularJS ::.";
+
+            $scope.todos = [{
+                text: "Aprender AngularJS",
+                done: true
+            }, {
+                text: "Criar uma aplicação com AngularJS",
+                done: false
+            }, ];
+
+            $scope.remaining = function() {
+                var count = 0;
+                angular.forEach($scope.todos, function(todo) {
+                    count += todo.done ? 0 : 1;
+                });
+                return count;
+            }
+        }
+    </script>
+</body>
+
+</html>
